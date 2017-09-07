@@ -28,8 +28,11 @@ public class WereldLaderImplTest {
 
     @Test
     public void zouVoorbeeldKaartMoetenLaden() {
+        System.out.println("hallo2");
         Wereld wereld = lader.laad("/kaarten/voorbeeld-kaart.txt");
-
+        System.out.println("HALLO3");
+        System.out.println(wereld.getKaart().getBreedte());
+        System.out.println(wereld.getKaart().getHoogte());
         assertNotNull(wereld);
         assertNotNull(wereld.getKaart());
         assertNotNull(wereld.getSteden());
