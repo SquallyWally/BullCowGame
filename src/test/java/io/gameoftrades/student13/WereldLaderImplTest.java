@@ -1,5 +1,6 @@
-package io.gameoftrades.studentNN;
+package io.gameoftrades.student13;
 
+import io.gameoftrades.student13.WereldLaderImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
