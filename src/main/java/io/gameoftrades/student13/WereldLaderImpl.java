@@ -7,7 +7,6 @@ import io.gameoftrades.model.kaart.Kaart;
 import io.gameoftrades.model.kaart.Stad;
 import io.gameoftrades.model.kaart.Terrein;
 import io.gameoftrades.model.kaart.TerreinType;
-import static io.gameoftrades.model.kaart.TerreinType.fromLetter;
 import io.gameoftrades.model.lader.WereldLader;
 import io.gameoftrades.model.markt.Handel;
 import io.gameoftrades.model.markt.HandelType;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class WereldLaderImpl implements WereldLader {
     
     @Override
@@ -43,37 +43,48 @@ public class WereldLaderImpl implements WereldLader {
             HandelType ht;
             Handelswaar hw;
             int prijs;
-            List<Handel> handelLijst = new ArrayList();
+            List<Handel> handelLijst = new ArrayList();            
             
             
-            String[] lengtematen = input.readLine().split(",");
-            lengte = Integer.parseInt(lengtematen[0]);
-            breedte = Integer.parseInt(lengtematen[1]);
+            String[] lengtematen = input.readLine().replaceAll("\\s+","").split(",");
+            breedte = Integer.parseInt(lengtematen[0]);
+            lengte = Integer.parseInt(lengtematen[1]);
             
-            //if(lengte > 0 && breedte > 0){
-                kaart = new Kaart(lengte, breedte);
-            //}
-            
-            for(int i = 0; i < lengte; i++){
+            kaart = new Kaart(breedte, lengte);
+                                  
+            //optie 1
+            /*for(int i = 0; i < lengte; i++){
                 for(int j = 0; j< breedte; j++){
                     c = op(i,j);
-                    tt = fromLetter((char)input.read());
+                    tt = TerreinType.fromLetter((char)input.read());
                     Terrein t = new Terrein(kaart, c, tt);
                 }
+                input.skip(2); //skip enter
                 
+            }*/
+            
+            //optie 2
+            for(int i = 0; i < lengte; i++){
+                String tts = input.readLine().replaceAll("\\s+","");
+                for(int j = 0; j< breedte; j++){
+                    c = op(j,i);
+                    tt = TerreinType.fromLetter(tts.charAt(j));
+                    Terrein t = new Terrein(kaart, c, tt);
+                }                              
             }
-            aantalSteden = Integer.parseInt(input.readLine());
+            
+            aantalSteden = Integer.parseInt(input.readLine().replaceAll("\\s+",""));
             
             for(int k = 0; k < aantalSteden; k++){
-                String[] stadArray = input.readLine().split(",");
+                String[] stadArray = input.readLine().replaceAll("\\s+","").split(",");
                 c = op(Integer.parseInt(stadArray[0]), Integer.parseInt(stadArray[1]));
                 stad = new Stad(c, stadArray[2]);
                 stedenLijst.add(stad);
             }
             
-            aantalMarkt = Integer.parseInt(input.readLine());
+            aantalMarkt = Integer.parseInt(input.readLine().replaceAll("\\s+",""));
             for(int l = 0; l < aantalMarkt; l++){
-                String[] handelArray = input.readLine().split(",");
+                String[] handelArray = input.readLine().replaceAll("\\s+","").split(",");
                 stad = null; // temp fix
                 for(Stad s: stedenLijst){
                     if (s.getNaam().equals(handelArray[0])){
