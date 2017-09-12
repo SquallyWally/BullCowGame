@@ -64,6 +64,8 @@ public class WereldLaderImpl implements WereldLader {
             }*/
             
             //optie 2
+            
+            try{
             for(int i = 0; i < lengte; i++){
                 String tts = input.readLine().replaceAll("\\s+","");
                 for(int j = 0; j< breedte; j++){
@@ -72,14 +74,21 @@ public class WereldLaderImpl implements WereldLader {
                     Terrein t = new Terrein(kaart, c, tt);
                 }                              
             }
+            }catch(StringIndexOutOfBoundsException  e){
+//                System.out.println("Kaart inhoud klopt niet");
+            }
             
             aantalSteden = Integer.parseInt(input.readLine().replaceAll("\\s+",""));
             
             for(int k = 0; k < aantalSteden; k++){
                 String[] stadArray = input.readLine().replaceAll("\\s+","").split(",");
-                c = op(Integer.parseInt(stadArray[0]), Integer.parseInt(stadArray[1]));
-                stad = new Stad(c, stadArray[2]);
-                stedenLijst.add(stad);
+                    c = op(Integer.parseInt(stadArray[0]), Integer.parseInt(stadArray[1]));
+                if(Integer.parseInt(stadArray[0]) != 0 && Integer.parseInt(stadArray[1]) != 0){
+                    stad = new Stad(c, stadArray[2]);
+                    stedenLijst.add(stad); 
+                }else{
+                    throw new IllegalArgumentException();
+                }
             }
             
             aantalMarkt = Integer.parseInt(input.readLine().replaceAll("\\s+",""));
@@ -108,6 +117,8 @@ public class WereldLaderImpl implements WereldLader {
             return wereld;
         } catch (IOException ex) {
             Logger.getLogger(WereldLaderImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StringIndexOutOfBoundsException e){
+        
         }return null;
     }
 }
