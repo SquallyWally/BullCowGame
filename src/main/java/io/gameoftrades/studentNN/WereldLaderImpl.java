@@ -58,7 +58,7 @@ public class WereldLaderImpl implements WereldLader {
             for(int i = 0; i < lengte; i++){
                 for(int j = 0; j< breedte; j++){
                     c = op(i,j);
-                    tt = fromLetter((char)input.read());
+                    tt = TerreinType.fromLetter((char)input.read());
                     Terrein t = new Terrein(kaart, c, tt);
                 }
                 
