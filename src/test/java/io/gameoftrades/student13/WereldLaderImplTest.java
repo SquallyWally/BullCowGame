@@ -1,5 +1,6 @@
-package io.gameoftrades.studentNN;
+package io.gameoftrades.student13;
 
+import io.gameoftrades.student13.WereldLaderImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,11 +29,9 @@ public class WereldLaderImplTest {
 
     @Test
     public void zouVoorbeeldKaartMoetenLaden() {
-        System.out.println("hallo2");
         Wereld wereld = lader.laad("/kaarten/voorbeeld-kaart.txt");
-        System.out.println("HALLO3");
-        System.out.println(wereld.getKaart().getBreedte());
-        System.out.println(wereld.getKaart().getHoogte());
+//        System.out.println(wereld.getKaart().getBreedte());
+//        System.out.println(wereld.getKaart().getHoogte());
         assertNotNull(wereld);
         assertNotNull(wereld.getKaart());
         assertNotNull(wereld.getSteden());
