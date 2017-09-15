@@ -10,6 +10,6 @@ import io.gameoftrades.student13.HandelaarImpl;
 public class StudentUI {
 
 	public static void main(String[] args) {
-		MainGui.toon(new HandelaarImpl(), "/kaarten/voorbeeld-kaart.txt");
+		MainGui.toon(new HandelaarImpl(), "/kaarten/westeros-kaart.txt");
 	}
 }
