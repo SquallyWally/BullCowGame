@@ -85,6 +85,10 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
                     
                     if (tempPad.volg(startco).getX() ==eindco.getX() && tempPad.volg(startco).getY() ==eindco.getY()){
                         System.out.println("gelukt!");
+                        for(int v = 0; v < richtingen.length; v++){
+                            System.out.print(richtingen[v]);
+                        }
+                        
                         return tempPad;                        
                     }
                     if(bevatCoordinaat(padenlijst, buur)){
@@ -109,8 +113,8 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
     
     public Pad getStartPad(Kaart kaart, Coordinaat startco){
         Richting[] richtingen = new Richting[0];
-        Pad startPad = new PadImpl(richtingen, kaart.getTerreinOp(startco).getTerreinType().getBewegingspunten());
-        //Pad startPad = new PadImpl(richtingen, 0);
+        //Pad startPad = new PadImpl(richtingen, kaart.getTerreinOp(startco).getTerreinType().getBewegingspunten());
+        Pad startPad = new PadImpl(richtingen, 0);
         return startPad;
     }
     

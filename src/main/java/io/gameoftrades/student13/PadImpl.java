@@ -33,7 +33,7 @@ public class PadImpl implements Pad{
     public Pad omgekeerd() {
         Richting[] omgekeerdeRichtingen = new Richting[richtingen.length];
         for(int i = 0; i < richtingen.length; i++){
-            omgekeerdeRichtingen[i] = richtingen[richtingen.length - i -1];
+            omgekeerdeRichtingen[i] = richtingen[richtingen.length - i -1].omgekeerd();
         }
         return new PadImpl(omgekeerdeRichtingen, this.getTotaleTijd());
     }
