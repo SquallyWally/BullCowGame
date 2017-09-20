@@ -136,6 +136,7 @@ public class WereldLaderImplTest {
         assertEquals(21, wereld.getSteden().size());
         assertEquals(25, wereld.getKaart().getBreedte());
         assertEquals(50, wereld.getKaart().getHoogte());
+        assertEquals(TerreinType.STAD, wereld.getKaart().getTerreinOp(Coordinaat.op(23, 47)).getTerreinType());
     }
 
 }

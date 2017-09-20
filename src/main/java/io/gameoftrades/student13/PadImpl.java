@@ -31,8 +31,11 @@ public class PadImpl implements Pad{
 
     @Override
     public Pad omgekeerd() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //flip Richting[]
+        Richting[] omgekeerdeRichtingen = new Richting[richtingen.length];
+        for(int i = 0; i < richtingen.length; i++){
+            omgekeerdeRichtingen[i] = richtingen[richtingen.length - i -1];
+        }
+        return new PadImpl(omgekeerdeRichtingen, this.getTotaleTijd());
     }
 
     @Override
