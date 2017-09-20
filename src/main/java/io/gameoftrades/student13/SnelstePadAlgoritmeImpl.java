@@ -19,11 +19,12 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
     Coordinaat eindco;
     @Override
     @SuppressWarnings("empty-statement")
+    
     public Pad bereken(Kaart kaart, Coordinaat crdnt, Coordinaat crdnt1) {
         Pad padar = null; //=new PadImpl;
         startco = crdnt;
         eindco = crdnt1;
-        
+                
         Richting[] nozw = Richting.values();
         Richting[] richtingen;
         ArrayList<Pad> padenlijst = new ArrayList<Pad>();
@@ -48,7 +49,7 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
         Pad startpad = getStartPad(kaart, startco);
         padenlijst.add(startpad);
         
-        while(!nietBezocht.isEmpty()){
+        while(!nietBezocht.isEmpty() && padar == null){
             
             int afstandVanafStart = Integer.MAX_VALUE;
             Pad currentPad = null;
@@ -62,12 +63,23 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
             
             for(int i = 0; i< nozw.length; i++){
                 if(kaart.isOpKaart(currentPad.volg(startco).naar(nozw[i])) && nietBezocht.contains(currentPad.volg(startco).naar(nozw[i]))){
-                    Coordinaat buur = currentPad.volg(startco).naar(nozw[i]);                        
+                    Coordinaat buur = currentPad.volg(startco).naar(nozw[i]);
+                    
                     Richting[] tempRichtingen = currentPad.getBewegingen();
                     richtingen = new Richting[tempRichtingen.length + 1];
+                    for(int z = 0; z < tempRichtingen.length; z++){
+                        richtingen[z] = tempRichtingen[z];
+                    }
                     richtingen[richtingen.length - 1] = nozw[i];
+                    
+                    
                     Pad tempPad = new PadImpl(richtingen, (currentPad.getTotaleTijd() + kaart.getTerreinOp(buur).getTerreinType().getBewegingspunten()));
-                    if (tempPad.volg(startco)==eindco) return tempPad;
+                    System.out.println(tempPad.volg(startco).getX() + " " + tempPad.volg(startco).getY());
+                    if (tempPad.volg(startco).getX() ==eindco.getX() && tempPad.volg(startco).getY() ==eindco.getY()){
+                        System.out.println("gelukt!");
+                        padar = tempPad;
+                        //return padar;
+                    }
                     if(bevatCoordinaat(padenlijst, buur)){
                         for(Pad p: padenlijst){
                             if(p.volg(startco) == buur && p.getTotaleTijd() <= tempPad.getTotaleTijd()){
@@ -84,7 +96,7 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
             }
             nietBezocht.remove(currentPad.volg(startco));
         }
-        
+        System.out.println("hallo");
         return padar;
     }
     
