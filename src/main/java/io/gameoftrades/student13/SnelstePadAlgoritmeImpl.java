@@ -52,6 +52,9 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
         Pad startpad = getStartPad(kaart, startco);
         padenlijst.add(startpad);
         
+        //voor de mentaal gehandicapte gebruiker
+        if(startco.getX() == eindco.getX() && startco.getY() == eindco.getY()) return startpad;
+        
         while(!nietBezocht.isEmpty()){            
             int afstandVanafStart = Integer.MAX_VALUE;
             Pad currentPad = null;
@@ -64,9 +67,8 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
             }
             
             for(int i = 0; i< nozw.length; i++){
-                if(currentPad.volg(startco) == null) System.out.println("wtf");
                 Coordinaat currentEindco = currentPad.volg(startco);
-                
+                                
                 if(currentEindco.getX()==0 && nozw[i].equals(WEST) || currentEindco.getX()== kaart.getBreedte() && nozw[i].equals(OOST) || currentEindco.getY()== 0 && nozw[i].equals(NOORD)|| currentEindco.getY()== kaart.getHoogte() && nozw[i].equals(ZUID)) continue;
                 
                 if(kaart.isOpKaart(currentEindco.naar(nozw[i])) && nietBezocht.contains(currentEindco.naar(nozw[i]))){
