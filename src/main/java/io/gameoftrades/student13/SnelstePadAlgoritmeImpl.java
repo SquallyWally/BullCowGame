@@ -27,22 +27,14 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
                 
         Richting[] nozw = Richting.values();
         Richting[] richtingen;
-        ArrayList<Pad> padenlijst = new ArrayList<Pad>();
-        
-        
+        ArrayList<Pad> padenlijst = new ArrayList<Pad>();       
         ArrayList<Coordinaat> nietBezocht = new ArrayList<Coordinaat>();
         
         for(int y = 0; y < kaart.getHoogte(); y++){
             for(int x = 0; x < kaart.getBreedte(); x++){
                 if(kaart.getTerreinOp(op(x,y)).getTerreinType().isToegankelijk()){
                     nietBezocht.add(op(x,y));
-                }
-                
-                
-                //ga elke buur van het startpunt af, onthoudt van elke buur de kortste afstand naar het startpunt EN de richtingen ( in PadImpl) en verwijder het startpunt uit nietbezocht.
-                //ga vervolgens weer de buren van de buren (subburen) af en onthoudt van de subburen de kortste afstand tot het startpunt (in PadImpl) en verwijder de buren NIET SUBBUREN uit nietbezocht.
-                //dan ga je de buren van de subburen, de subsubburen, af en onthoudt de kortste afstand van de subsubburen tot het startpunt in PadImpl, etc.
-                //op deze wijze krijg je van elke punt op de kaart EEN (1!) kortste route van alle mogelijke kortste routes vanaf het startpunt.
+                }            
             }
         }
         
