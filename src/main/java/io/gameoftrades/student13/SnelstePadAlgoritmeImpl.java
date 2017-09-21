@@ -5,6 +5,9 @@
  */
 package io.gameoftrades.student13;
 
+import io.gameoftrades.debug.Debuggable;
+import io.gameoftrades.debug.Debugger;
+import io.gameoftrades.debug.DummyDebugger;
 import io.gameoftrades.model.algoritme.SnelstePadAlgoritme;
 import io.gameoftrades.model.kaart.Coordinaat;
 import static io.gameoftrades.model.kaart.Coordinaat.op;
@@ -17,10 +20,11 @@ import static io.gameoftrades.model.kaart.Richting.WEST;
 import static io.gameoftrades.model.kaart.Richting.ZUID;
 import java.util.ArrayList;
 
-public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
+public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme, Debuggable{
     
     Coordinaat startco;
     Coordinaat eindco;
+    Debugger debugger = new DummyDebugger();
     @Override
     @SuppressWarnings("empty-statement")
     
@@ -41,12 +45,6 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
                 if(kaart.getTerreinOp(op(x,y)).getTerreinType().isToegankelijk()){
                     nietBezocht.add(op(x,y));
                 }            
-            }
-        }
-        
-        for(Coordinaat c: nietBezocht){
-            if(c.getX() == 24 && c.getY() == 48){
-                System.out.println("zou moeten werken");
             }
         }
         Pad startpad = getStartPad(kaart, startco);
@@ -86,11 +84,7 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
                     //System.out.println(tempPad.volg(startco).getX() + " " + tempPad.volg(startco).getY());
                     
                     if (tempPad.volg(startco).getX() ==eindco.getX() && tempPad.volg(startco).getY() ==eindco.getY()){
-                        System.out.println("gelukt!");
-                        for(int v = 0; v < richtingen.length; v++){
-                            System.out.print(richtingen[v]);
-                        }
-                        
+                        debugger.debugPad(kaart, startco, tempPad);
                         return tempPad;                        
                     }
                     if(bevatCoordinaat(padenlijst, buur)){
@@ -127,6 +121,11 @@ public class SnelstePadAlgoritmeImpl implements SnelstePadAlgoritme{
             }
         }
         return false;
+    }
+
+    @Override
+    public void setDebugger(Debugger debugger) {
+        this.debugger = debugger;
     }
     
 }
